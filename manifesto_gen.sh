@@ -1,39 +1,23 @@
-#!/bin/bash
-# Script 5: Open Source Manifesto Generator
-# Author: Darrel Shibu
+#!/bin/bash  # Use Bash shell
 
-echo "========================================"
-echo " Open Source Manifesto Generator"
-echo "========================================"
-echo ""
+read -p "1. Name one open-source tool you use every day: " TOOL   # Get tool input
+read -p "2. In one word, what does 'freedom' mean to you? " FREEDOM  # Get freedom input
+read -p "3. Name one thing you would build and share freely: " BUILD  # Get build idea
 
-read -p "1. Name one open-source tool you use every day: " TOOL
-read -p "2. In one word, what does 'freedom' mean to you? " FREEDOM
-read -p "3. Name one thing you would build and share freely: " BUILD
+DATE=$(date '+%d %B %Y')         # Get current date
+USER_NAME=$(whoami)              # Get username
+OUTPUT="manifesto_$USER_NAME.txt"  # Create output filename
 
-DATE=$(date '+%d %B %Y')
-USER_NAME=$(whoami)
-OUTPUT="manifesto_$USER_NAME.txt"
-
-echo "" > "$OUTPUT"
-
-echo "Open Source Manifesto" >> "$OUTPUT"
-echo "Generated on: $DATE" >> "$OUTPUT"
-echo "Author: $USER_NAME" >> "$OUTPUT"
-echo "----------------------------------------" >> "$OUTPUT"
+echo "Open Source Manifesto" > "$OUTPUT"  # Write title (overwrite file)
+echo "Generated on: $DATE" >> "$OUTPUT"   # Append date
+echo "Author: $USER_NAME" >> "$OUTPUT"    # Append author
 echo "" >> "$OUTPUT"
 
-echo "I believe in the power of open source." >> "$OUTPUT"
-echo "Every day I rely on tools like $TOOL, which prove that collaboration builds stronger systems." >> "$OUTPUT"
-echo "To me, freedom means $FREEDOM — the ability to learn, modify, and share knowledge." >> "$OUTPUT"
-echo "If given the opportunity, I would build $BUILD and release it openly so others can improve it." >> "$OUTPUT"
-echo "Standing on the foundation of the Linux Kernel, I commit to contributing back to the community." >> "$OUTPUT"
+echo "I believe in open collaboration." >> "$OUTPUT"
+echo "I use tools like $TOOL daily." >> "$OUTPUT"
+echo "Freedom means $FREEDOM to me." >> "$OUTPUT"
+echo "I would build $BUILD and share it freely." >> "$OUTPUT"
 
-echo ""
-echo "Manifesto saved to $OUTPUT"
-echo ""
-cat "$OUTPUT"
+cat "$OUTPUT"  # Display manifesto
 
-# Alias example (demonstration only, not permanent)
-# You could create an alias like:
-# alias manifesto="./script5.sh"
+# alias manifesto="./script5.sh"  # Example alias (comment only)
