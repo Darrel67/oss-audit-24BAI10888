@@ -3,9 +3,13 @@
 ## Student Information
 
 Name: Darrel Shibu  
+
 Registration Number: 24BAI10888
+
 Course: Open Source Software  
+
 Project Title: The Open Source Audit  
+
 Chosen Software: Linux Kernel  
 
 ---
