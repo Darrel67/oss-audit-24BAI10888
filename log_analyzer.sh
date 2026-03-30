@@ -1,35 +1,26 @@
-#!/bin/bash
-# Script 4: Log File Analyzer
-# Usage: ./log_analyzer.sh /var/log/syslog error
+#!/bin/bash  # Use Bash shell
 
-LOGFILE=$1
-KEYWORD=${2:-"error"}   # Default keyword is 'error'
-COUNT=0
+LOGFILE=$1                     # First argument = log file path
+KEYWORD=${2:-"error"}           # Second argument = keyword (default "error")
+COUNT=0                         # Initialize counter
 
-# Check if file exists
-if [ ! -f "$LOGFILE" ]; then
-    echo "Error: File $LOGFILE not found."
-    exit 1
+if [ ! -f "$LOGFILE" ]; then    # Check if file exists
+    echo "Error: File not found."
+    exit 1                      # Exit if missing
 fi
 
-# Check if file is empty (do-while style retry simulation)
-while [ ! -s "$LOGFILE" ]; do
-    echo "File is empty. Waiting for log entries..."
-    sleep 5
+while [ ! -s "$LOGFILE" ]; do   # If file is empty
+    echo "File is empty. Waiting..."
+    sleep 5                     # Wait 5 seconds
 done
 
-# Read file line by line
-while IFS= read -r LINE; do
-    if echo "$LINE" | grep -iq "$KEYWORD"; then
-        COUNT=$((COUNT + 1))
+while IFS= read -r LINE; do     # Read file line by line
+
+    if echo "$LINE" | grep -iq "$KEYWORD"; then  # Check for keyword (case insensitive)
+        COUNT=$((COUNT + 1))   # Increment counter
     fi
-done < "$LOGFILE"
 
-echo ""
-echo "======================================"
-echo "Keyword '$KEYWORD' found $COUNT times in $LOGFILE"
-echo "======================================"
+done < "$LOGFILE"               # Input from logfile
 
-echo ""
-echo "Last 5 matching lines:"
-grep -i "$KEYWORD" "$LOGFILE" | tail -5
+echo "Keyword '$KEYWORD' found $COUNT times in $LOGFILE"  # Print summary
+grep -i "$KEYWORD" "$LOGFILE" | tail -5  # Show last 5 matches
