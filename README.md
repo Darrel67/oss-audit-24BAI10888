@@ -37,7 +37,7 @@ It was created in 1991 by Linus Torvalds and is licensed under the GNU General P
 
 ## Repository Structure
 
-oss-audit-[rollnumber]/
+oss-audit-24BAI10888/
 │
 ├── script1.sh
 ├── script2.sh
@@ -177,8 +177,8 @@ No additional dependencies are required.
 
 1. Clone the repository:
 
-git clone https://github.com/yourusername/oss-audit-[rollnumber].git  
-cd oss-audit-[rollnumber]  
+git clone https://github.com/Darrel67/oss-audit-24BAI10888.git  
+cd oss-audit-24BAI10888 
 
 2. Make all scripts executable:
 
