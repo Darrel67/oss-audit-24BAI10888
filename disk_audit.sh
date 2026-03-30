@@ -1,40 +1,28 @@
-#!/bin/bash
-# Script 3: Disk and Permission Auditor
-# Author: Darrel Shibu
-# Purpose: Audit important system directories and check kernel config directory
+#!/bin/bash  # Use Bash shell
 
-DIRS=("/etc" "/var/log" "/home" "/usr/bin" "/tmp")
+DIRS=("/etc" "/var/log" "/home" "/usr/bin" "/tmp")  # Array of directories
 
-echo "========================================"
-echo "        Directory Audit Report"
-echo "========================================"
+for DIR in "${DIRS[@]}"; do   # Loop through each directory
 
-for DIR in "${DIRS[@]}"; do
-    if [ -d "$DIR" ]; then
-        # Get permissions, owner, group
-        PERMS=$(ls -ld "$DIR" | awk '{print $1, $3, $4}')
-        
-        # Get directory size
-        SIZE=$(du -sh "$DIR" 2>/dev/null | cut -f1)
-        
-        echo "$DIR => Permissions: $PERMS | Size: $SIZE"
+    if [ -d "$DIR" ]; then    # Check if directory exists
+
+        PERMS=$(ls -ld "$DIR" | awk '{print $1, $3, $4}')  # Get permissions, owner, group
+        SIZE=$(du -sh "$DIR" 2>/dev/null | cut -f1)        # Get directory size
+
+        echo "$DIR => Permissions: $PERMS | Size: $SIZE"   # Print result
     else
-        echo "$DIR does not exist on this system"
+        echo "$DIR does not exist."  # If directory missing
     fi
+
 done
 
-echo ""
-echo "----------------------------------------"
-echo " Checking Linux Kernel Config Directory"
-echo "----------------------------------------"
+KERNEL_VERSION=$(uname -r)                     # Get kernel version
+KERNEL_CONFIG="/boot/config-$KERNEL_VERSION"   # Build config file path
 
-KERNEL_VERSION=$(uname -r)
-KERNEL_CONFIG="/boot/config-$KERNEL_VERSION"
-
-if [ -f "$KERNEL_CONFIG" ]; then
-    CONFIG_PERMS=$(ls -l "$KERNEL_CONFIG" | awk '{print $1, $3, $4}')
-    echo "Kernel config found: $KERNEL_CONFIG"
-    echo "Permissions: $CONFIG_PERMS"
+if [ -f "$KERNEL_CONFIG" ]; then               # Check if config file exists
+    CONFIG_PERMS=$(ls -l "$KERNEL_CONFIG" | awk '{print $1, $3, $4}')  # Get file permissions
+    echo "Kernel config found: $KERNEL_CONFIG" # Print file path
+    echo "Permissions: $CONFIG_PERMS"          # Print permissions
 else
-    echo "Kernel config file not found."
+    echo "Kernel config file not found."       # If file not found
 fi
